@@ -12,35 +12,49 @@ import './Navbar.css'
 function Navbar () {
     return (
         <>
-            <Box sx={{ flexGrow: 1 }} justifyContent='start'>
-                <AppBar position="static">
-                <Toolbar>
-                    
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    <Button color="inherit">Home</Button>
+        <AppBar position="static">
+            <Toolbar variant="dense"> 
+                <Box className="cursor">
+                    <Typography variant="h5" color='inherit'>
+                        BlogPessoal
                     </Typography>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    <Button color="inherit">Postagens</Button>
-                    </Typography>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    <Button color="inherit">Temas</Button>
-                    </Typography>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    <Button color="inherit">Cadastrar temas</Button>
-                    </Typography>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    <Button color="inherit">Login</Button>
-                    </Typography>
-                    <Link to = '/login' className="decorator-none">
-                    <Box mx = {1} style = {{cursor: 'pointer', color: "white"}}> 
-                        <Typography variant="h6"  color = 'inherit'>
-                        <Button color="inherit">Logout</Button>
+                </Box>
+
+                <Box display='flex' justifyContent='start'>
+                            <Box mx = {1} className="cursor">
+                                <Typography variant="h6">
+                        <Button color="inherit">Home</Button> </Typography>
+                        </Box>
+                        <Box mx = {1}  className="cursor">
+                            <Typography variant="h6">
+                            <Button color="inherit">Postagens</Button>
+                            </Typography>
+                        </Box>
+                        <Box mx = {1}  className="cursor">
+                            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                            <Button color="inherit">Temas</Button>
+                            </Typography>
+                        </Box>
+                        <Box mx = {1}  className="cursor">
+                            <Typography variant="h6">
+                            <Button color="inherit">Cadastrar temas</Button>
+                            </Typography>
+                        </Box>
+                        <Box mx = {1}  className="cursor">
+                            <Typography variant="h6" >
+                            <Button color="inherit">Login</Button>
                         </Typography>
-                    </Box>
-                    </Link> 
+                        </Box>
+                        <Link to = '/login' className="decorator-none">
+                        <Box mx = {1} > 
+                            <Typography variant="h6" className="cursor">
+                            <Button color="inherit">Logout</Button>
+                            </Typography>
+                        </Box>
+                        </Link>
+                </Box>
                 </Toolbar>
                 </AppBar>
-            </Box>
 
         </>
     )
