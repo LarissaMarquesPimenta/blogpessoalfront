@@ -1,6 +1,5 @@
 import React from 'react';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import {Typography, Grid } from '@material-ui/core';
 import {Box} from '@mui/material';
@@ -18,9 +17,6 @@ function Footer() {
                             <a href="https://www.linkedin.com/in/larissa-aparecida-marques-pimenta-santos-04a28a19b/" target="_blank">
                                 <LinkedInIcon style={{ fontSize: 60, color: "white" }} />
                             </a>
-                            <a href="https://www.facebook.com/generationbrasil" target="_blank">
-                                <FacebookOutlinedIcon style={{ fontSize: 60, color: "white" }} />
-                            </a>
                             <a href="https://github.com/LarissaMarquesPimenta" target="_blank">
                                 <GitHubIcon style={{ fontSize: 60, color: "white" }} />
                             </a>
@@ -32,8 +28,8 @@ function Footer() {
                             <Typography variant="subtitle2" align="center" gutterBottom style={{ color: "white" }} >© 2023 Copyright:</Typography>
                         </Box>
                         <Box>
-                            <a target="_blank" href="https://brasil.generation.org">
-                                <Typography variant="subtitle2" gutterBottom style={{ color: "white" }} align="center">brasil.generation.org</Typography>
+                            <a target="_blank" href="https://github.com/LarissaMarquesPimenta/blogpessoalfront">
+                                <Typography variant="subtitle2" gutterBottom style={{ color: "white" }} align="center">Por Larissa Pimenta</Typography>
                             </a>
                         </Box>
                     </Box>
