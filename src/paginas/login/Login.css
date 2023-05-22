@@ -1,3 +1,22 @@
 .text-decorator-none {
     text-decoration: none;
 }
+
+.text-bold {
+    font-weight: bold !important;
+}
+
+.imagem {
+        background-image: url(https://genshin.global/wp-content/uploads/2022/10/kazuha-autumn-maple-koki-fanart-wallpaper-genshin.jpg);
+        background-repeat: no-repeat;
+        width: 100vh; 
+        min-height: 150vh; 
+        background-size: cover; 
+        background-position: center
+
+}
+
+.botao {
+    font-weight: bold !important;
+    background-color: #2e2e52 !important; 
+}

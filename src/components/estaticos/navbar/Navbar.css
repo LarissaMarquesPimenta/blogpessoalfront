@@ -6,3 +6,7 @@
     cursor: pointer;
     color: white;
 }
+
+.fundo-navbar {
+    background-color: #2e2e52; 
+}

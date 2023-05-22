@@ -4,8 +4,8 @@ import Navbar from './components/estaticos/navbar/Navbar';
 import Home from './paginas/home/Home';
 import Footer from './components/estaticos/footer/Footer';
 import Login from './paginas/login/Login';
-
 import './App.css';
+import CadastroUsuario from './paginas/cadastroUsuario/CadastroUsuario';
 
 
 function App() {
@@ -15,14 +15,13 @@ function App() {
       <Navbar />
       <div  style={{ minHeight: '78vh' }}>
         <Routes>
-        <Route path='/login' element={<Login/>}> 
-        </Route>
-
-        <Route path='/' element={<Login/>}> 
-        </Route>
-
-        <Route path="/home" element={<Home />} />
+        <Route path='/login' element={<Login/>}></Route>
+        <Route path='/' element={<Home/>}></Route>
+        <Route path='/home' element={<Home />} />
+        <Route path='/cadastro' element={<CadastroUsuario/>}></Route>
+      
       </Routes>
+
       </div>
       <Footer />
     </Router>
