@@ -31,7 +31,7 @@ function Login() {
         });
     }
 
-    async function enviar(event: ChangeEvent<HTMLFormElement>) {
+    async function enviar(event: ChangeEvent<HTMLFormElement>) { 
         event.preventDefault();
     try {
         await login('/usuarios/logar', usuarioLogin, setToken);
@@ -45,7 +45,6 @@ function Login() {
         navigate('/home');
         }
     }, [token]);
-
 
     return(
         <Grid container direction="row" justifyContent="center" alignItems="center">
