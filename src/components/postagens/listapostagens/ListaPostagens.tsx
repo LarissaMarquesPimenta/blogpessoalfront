@@ -6,14 +6,14 @@ import useLocalStorage from 'react-use-localstorage';
 import { Postagem } from '../../../models/Postagem';
 import { busca } from '../../../services/Services';
 
-function ListaPostagens() {
+function ListaPostagem() {
 
-  const [postagens, setPostagens] = useState<Postagem[]>([])
+  const [postagens, setPostagem] = useState<Postagem[]>([])
   const navigate = useNavigate();
   const [token, setToken] = useLocalStorage('token');
   
-  function getPostagens() {
-    busca('/postagens', setPostagens, {
+  function getPostagem() {
+    busca('/postagens', setPostagem, {
       headers: {
         Authorization: token
       }
@@ -21,7 +21,7 @@ function ListaPostagens() {
   }
   
   useEffect(() => {
-    getPostagens()
+    getPostagem()
   }, [])
 
   useEffect(() => {
@@ -56,4 +56,4 @@ function ListaPostagens() {
   )
 }
 
-export default ListaPostagens
+export default ListaPostagem
