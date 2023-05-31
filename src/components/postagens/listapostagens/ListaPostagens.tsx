@@ -1,19 +1,23 @@
 import { Box, Grid, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import {Button} from '@material-ui/core'
-import { useNavigate } from 'react-router-dom';
-import useLocalStorage from 'react-use-localstorage';
+import { useSelector } from 'react-redux';
 import { Postagem } from '../../../models/Postagem';
 import { busca } from '../../../services/Services';
+import { useNavigate } from 'react-router-dom';
+import { TokenState } from '../../../store/tokens/tokensReducer';
 
-function ListaPostagem() {
+function ListaPostagens() {
 
-  const [postagens, setPostagem] = useState<Postagem[]>([])
+  const [postagens, setPostagens] = useState<Postagem[]>([])
   const navigate = useNavigate();
-  const [token, setToken] = useLocalStorage('token');
+  const token = useSelector<TokenState, TokenState["tokens"]>(
+    (state) => state.tokens
+  );
   
-  function getPostagem() {
-    busca('/postagens', setPostagem, {
+  function getPostagens() {
+    console.log(token);
+    busca('/postagens', setPostagens, {
       headers: {
         Authorization: token
       }
@@ -21,7 +25,7 @@ function ListaPostagem() {
   }
   
   useEffect(() => {
-    getPostagem()
+    getPostagens()
   }, [])
 
   useEffect(() => {
@@ -34,7 +38,7 @@ function ListaPostagem() {
   return (
     <>
       <Grid container my={2} px={4}>
-        <Box display='flex' flexWrap={'wrap'} width={'100%'}>
+      <Box display='flex' flexWrap={'wrap'} width={'100%'} gap={2}>
           {postagens.map((post) => (
             <Grid item xs={3} border={1} borderRadius={2} borderColor={'lightgray'} p={2}>
             <Typography>Postagem:</Typography>
@@ -56,4 +60,4 @@ function ListaPostagem() {
   )
 }
 
-export default ListaPostagem
+export default ListaPostagens

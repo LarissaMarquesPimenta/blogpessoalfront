@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes, BrowserRouter} from 'react-router-dom';
 import Navbar from './components/estaticos/navbar/Navbar';
 import Home from './paginas/home/Home';
 import Footer from './components/estaticos/footer/Footer';
@@ -12,12 +12,14 @@ import ListaPostagens from './components/postagens/listapostagens/ListaPostagens
 import FormularioPostagem from './components/postagens/formularioPostagem/FormularioPostagem';
 import DeletarPostagem from './components/postagens/deletarPostagens/DeletarPostagem';
 import ListaTemas from './components/temas/listatema/ListaTema';
-
+import { Provider } from 'react-redux'
+import store from './store/store'
 
 function App() {
   return (
     <>
-    <Router>
+    <Provider store={store}>
+      <BrowserRouter>
       <Navbar />
       <div  style={{ minHeight: '78vh' }}>
         <Routes>
@@ -40,10 +42,9 @@ function App() {
 
       </div>
       <Footer />
-    </Router>
+      </BrowserRouter>
+    </Provider>
     </>
   );
 }
-
-
 export default App;

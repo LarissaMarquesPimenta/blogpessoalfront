@@ -23,8 +23,9 @@ function TabPostagem() {
           </TabList>
         </AppBar>
         <TabPanel value="1"><ListaPostagens /></TabPanel>
-        <TabPanel value="2">
+        <TabPanel value="2" >
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nemo esse quo accusamus voluptatum minus repudiandae cupiditate quisquam illo praesentium deserunt asperiores optio explicabo nulla facilis, facere excepturi debitis atque!
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus commodi numquam exercitationem at nulla ut vero repellendus rerum quae dignissimos eos dolorem nobis modi aliquid sit accusantium quis, dolores non.
         </TabPanel>
         
       </TabContext>

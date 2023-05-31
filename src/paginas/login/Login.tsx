@@ -1,86 +1,122 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
-import { Grid, Box, Typography, TextField} from '@material-ui/core';
-import './Login.css'
-import { Button } from "@mui/material";
-import {Link, useNavigate} from "react-router-dom";
-import UsuarioLogin from "../../models/UsuarioLogin";
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import './Login.css';
+import { Grid, Box, Typography, TextField, Button } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import { UsuarioLogin } from '../../models/UsuarioLogin';
 import { login } from '../../services/Services';
-import useLocalStorage from "react-use-localstorage";
+import { useDispatch } from 'react-redux';
+import { addToken, addId } from '../../store/tokens/action';
 
 
 function Login() {
+  // cria a variavel para navegação interna pela rota
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
 
-    const navigate = useNavigate();
+  // cria um estado para armazenamento no localStorage do navegador
+  const [token, setToken] = useState('');
 
-    const [token, setToken] = useLocalStorage('token');
+  // cria um estado de controle para o usuário preencher os dados de login
+  const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>({
+    id: 0,
+    nome: '',
+    usuario: '',
+    senha: '',
+    foto: '',
+    token: '',
+  });
+  const [respUsuarioLogin, setRespUsuarioLogin] = useState<UsuarioLogin>({
+    id: 0,
+    nome: '',
+    usuario: '',
+    senha: '',
+    foto: '',
+    token: '',
+  });
 
-    const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>(
-        {
-        id: 0,
-        usuario: '',
-        foto: '',
-        senha: '',
-        token: ''
-    }
-    )
+  // atualiza os dados do estado acima, e ajuda a formar o JSON para a requisição
+  function updateModel(event: ChangeEvent<HTMLInputElement>) {
+    setUsuarioLogin({
+      ...usuarioLogin,
+      [event.target.name]: event.target.value,
+    });
+  }
 
-    function updateModel(event: ChangeEvent<HTMLInputElement>) {
-        setUsuarioLogin({
-        ...usuarioLogin,
-        [event.target.name]: event.target.value,
-        });
-    }
-
-    async function enviar(event: ChangeEvent<HTMLFormElement>) { 
-        event.preventDefault();
+  // função que envia o formulário para o backend
+  async function enviar(event: ChangeEvent<HTMLFormElement>) {
+    // previne que o formulario atualize a pagina
+    event.preventDefault();
     try {
-        await login('/usuarios/logar', usuarioLogin, setToken);
-    alert('Usuario logado com sucesso');
+      await login('/usuarios/logar', usuarioLogin, setRespUsuarioLogin);
+      alert('Usuario logado com sucesso');
     } catch (error) {
-    alert('Usuário e/ou senha inválidos');
+      alert('Usuário e/ou senha inválidos');
     }
-}
-    useEffect(() => {
-        if (token !== '') {
-        navigate('/home');
-        }
-    }, [token]);
+  }
 
-    return(
-        <Grid container direction="row" justifyContent="center" alignItems="center">
-            <Grid alignItems="center" xs = {6}>
-                <Box padding={15}>
-                <form onSubmit={enviar}> 
+  // Efeito que fica de olho no token, e quando chega algo diferente de vazio, navega o usuario pra home
+  useEffect(() => {
+    if (token !== '') {
+      // dispatch(addToken(token))
+      // navigate('/home');
+    }
+  }, [token]);
 
-                    <Typography variant="h3" gutterBottom color = 'textPrimary' component='h3' align = 'center' >Entrar</Typography>
-                    <TextField id="usuario" label='usuário' variant="outlined" name="usuario" margin="normal" fullWidth value ={usuarioLogin.usuario} onChange={(event:ChangeEvent<HTMLInputElement>) => updateModel(event)}/>
-                    <TextField id="senha" label='senha' variant="outlined" name="senha" margin="normal" type="password" fullWidth value ={usuarioLogin.senha} onChange={(event:ChangeEvent<HTMLInputElement>) => updateModel(event)} />
-                    <Box marginTop={2} textAlign='center'>
-                            <Button type="submit" variant="contained" className="botao">
-                                Entrar 
-                            </Button>
-                    </Box>
-                </form>
-                <Box display='flex' justifyContent='center' marginTop={2}>
-                    <Box marginRight={1}>
-                        <Typography variant="subtitle1" gutterBottom align="center">
-                            Não possui conta? 
-                        </Typography>
-                    </Box>
+  useEffect(() => {
+    if(respUsuarioLogin.token !== ''){
+      
+      dispatch(addId(respUsuarioLogin.id.toString()))
+      navigate('/home');
+      console.log({respUsuarioLogin});
+    }
+  }, [respUsuarioLogin.token])
+
+  return (
+    <>
+      <Grid container alignItems={'center'}>
+        <Grid item xs={6}>
+          <Box display={'flex'} justifyContent={'center'}>
+            <Grid item xs={6} gap={2} display={'flex'} flexDirection={'column'}>
+              <form onSubmit={enviar}>
+                <Box display={'flex'} flexDirection={'column'} gap={2}>
+                  <Typography align="center" variant="h3">
+                    Login
+                  </Typography>
+
+                  <TextField
+                    name="usuario"
+                    label="Nome de usuário"
+                    value={usuarioLogin.usuario}
+                    onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                      updateModel(event)
+                    }
+                  />
+
+                  <TextField
+                    name="senha"
+                    label="Senha"
+                    type="password"
+                    value={usuarioLogin.senha}
+                    onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                      updateModel(event)
+                    }
+                  />
+                  <Button fullWidth variant="contained" type="submit" className='botao'>
+                    Logar
+                  </Button>
                 </Box>
-                <Link to='/cadastro' className="text-decorator-none"><Typography variant="subtitle1" gutterBottom align="center" className="text-bold" color="primary">Cadastre-se!</Typography> </Link>
-                    
-
-            </Box>
+              </form>
+              <hr />
+              <Typography variant="body1" align="center">
+                Ainda não tem uma conta? <Link to="/cadastro" style={{textDecoration: 'underline'}}>Cadastre-se</Link>
+              </Typography>
             </Grid>
-            <Grid xs = {6} className="imagem">
-
-            </Grid>
-            
-
+          </Box>
         </Grid>
-    );
-
+        <Grid item xs={6} className="imagem"></Grid>
+      </Grid>
+    </>
+  );
 }
 
-export default Login; 
+export default Login;

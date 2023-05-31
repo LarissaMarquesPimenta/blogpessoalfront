@@ -6,15 +6,25 @@ TextField, Typography,
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Postagem } from '../../../models/Postagem';
 import { useNavigate, useParams } from 'react-router-dom';
-import useLocalStorage from 'react-use-localstorage';
 import { Tema } from '../../../models/Tema';
 import { busca, buscaId, post, put } from '../../../services/Services';
+import { useDispatch, useSelector } from 'react-redux';
+import { TokenState } from '../../../store/tokens/tokensReducer';
+import { addToken } from '../../../store/tokens/action';
+import Usuario from '../../../models/Usuario';
 
 function FormularioPostagem() {
     
 const navigate = useNavigate();
 
-const [token, setToken] = useLocalStorage('token');
+const token = useSelector<TokenState, TokenState["tokens"]>(
+    (state) => state.tokens
+    );
+    const userId = useSelector<TokenState, TokenState["id"]>(
+    (state) => state.id
+    );
+
+    const dispatch = useDispatch()
 
 const { id } = useParams<{ id: string }>();
 
@@ -23,6 +33,7 @@ const [temas, setTemas] = useState<Tema[]>([]);
 const [tema, setTema] = useState<Tema>({
     id: 0,
     descricao: '',
+    postagem: null,
 });
 
 const [postagem, setPostagem] = useState<Postagem>({
@@ -31,7 +42,19 @@ const [postagem, setPostagem] = useState<Postagem>({
     texto: '',
     data: '',
     tema: null,
+    usuario: null
 });
+
+const [usuario, setUsuario] = useState<Usuario>({
+    id: +userId,
+    foto: '',
+    nome: '',
+    usuario: '',
+    senha: '',
+    postagem: null
+    })
+
+
 
 useEffect(() => {
     if(token === ''){ 
@@ -50,7 +73,7 @@ async function getTemas() {
     } catch (error: any) {
     if (error.toString().contains('403')) {
         alert('Token expirado, logue novamente');
-        setToken('');
+        dispatch(addToken(''))
         navigate('/login');
     }
     }
@@ -78,13 +101,14 @@ function updateModel(event: ChangeEvent<HTMLInputElement>) {
     tema: tema,
     });
 }
-
 useEffect(() => {
     setPostagem({
     ...postagem,
     tema: tema,
+    usuario: usuario
     });
 }, [tema]);
+
 
 async function onSubmit(event: ChangeEvent<HTMLFormElement>) {
     event.preventDefault();

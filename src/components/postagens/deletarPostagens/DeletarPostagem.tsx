@@ -1,19 +1,24 @@
 import { Box, Grid, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import {Button} from '@material-ui/core'
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import useLocalStorage from 'react-use-localstorage';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Postagem } from '../../../models/Postagem';
 import { buscaId } from '../../../services/Services';
+import { TokenState } from '../../../store/tokens/tokensReducer';
 
 
 
 function DeletarPostagem() {
-const [token, setToken] = useLocalStorage('token');
+    const token = useSelector<TokenState, TokenState["tokens"]>(
+        (state) => state.tokens
+
+    );
 
 const navigate = useNavigate();
 
 const { id } = useParams<{ id: string }>();
+
 
 const [post, setPost] = useState<Postagem>({
 id: 0,
