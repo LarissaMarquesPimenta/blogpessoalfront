@@ -9,3 +9,5 @@ export interface Postagem {
     tema?: Tema | null
     usuario?: Usuario | null
 }
+
+export default Postagem
