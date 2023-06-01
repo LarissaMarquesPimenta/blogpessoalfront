@@ -1,9 +1,5 @@
 import axios from "axios";
 
-export const api = axios.create({
-baseURL: 'https://blogpessoal-4nbj.onrender.com'
-})
-
 export const login = async (url: string, dados: object, setDados: any) => {
     const resposta = await api.post(url, dados)
     setDados(resposta.data.token)
@@ -37,3 +33,7 @@ export const put = async (url: string, dados: object, setDados: any, header: any
 export const deleteId = async (url:any, header: any) => {
     await api.delete(url, header)
 }
+
+export const api = axios.create({
+    baseURL: import.meta.env.VITE_API_URL
+})
